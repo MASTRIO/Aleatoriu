@@ -1,15 +1,14 @@
 extends Node2D
 
 func _ready():
-	var peer = NetworkedMultiplayerENet.new()
-	peer.create_client("193.116.70.171", 6007)
-	get_tree().network_peer = peer
+	$Shadow.show()
 	
-	get_tree().connect("connected_to_server", self, "_connection_succeeded")
-	get_tree().connect("connection_failed", self, "_connection_failed")
+	var peer = NetworkedMultiplayerENet.new()
+	peer.create_client(IP.get_local_addresses()[3], 6007)
+	get_tree().network_peer = peer
 
-func _connection_succeeded():
-	print("yahoo")
+func _physics_process(_delta):
+	rpc("update_player_position", $Player.position)
 
-func _connection_failed():
-	print("yaboo")
+remote func connection_status():
+	print("yahahah, it works")

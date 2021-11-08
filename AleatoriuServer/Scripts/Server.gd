@@ -1,28 +1,24 @@
 extends Node
 
+#var new_client = load("res://Scenes/RemoteClient.tscn").instance()
+#new_client.set_name(str(id))
+#new_client.id = id
+#new_client.player_position = Vector2(0, 0)
+#$".".add_child(new_client)
+
+#$".".get_node(str(id)).queue_free()
+
 # Server info
 const PORT = 6007
 const MAX_PLAYERS = 10
 
+var network = NetworkedMultiplayerENet.new()
+var selected_IP
+var selected_port
+
+var local_player_id = 0
+sync var players = {}
+sync var player_data = {}
+
 func _ready():
-	# Creates the server
-	var peer = NetworkedMultiplayerENet.new()
-	peer.create_server(PORT, MAX_PLAYERS)
-	get_tree().network_peer = peer
 	
-	
-	# Connect server events
-	get_tree().connect("network_peer_connected", self, "_client_connected" )
-	get_tree().connect("network_peer_disconnected", self, "_client_disconnected")
-
-# When a client connects to the server
-func _client_connected(id):
-	print('Client ' + str(id) + ' connected to Server')
-	
-	# Add the remote client to the server
-	var new_client = load("res://Scenes/RemoteClient.tscn").instance()
-	new_client.set_name(str(id))     # spawn players with their respective names
-	get_tree().get_root().add_child(new_client)
-
-func _client_disconnected(id):
-	print('Client ' + str(id) + ' disconnected from Server')
