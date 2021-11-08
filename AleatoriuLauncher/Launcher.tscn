@@ -115,6 +115,8 @@ tracks/0/keys = {
 [node name="Launcher" type="Node2D"]
 script = ExtResource( 2 )
 
+[node name="GetVersion" type="HTTPRequest" parent="."]
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/LaunchGame = SubResource( 1 )
 anims/LoadGame = SubResource( 2 )
@@ -295,6 +297,7 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Loading"]
 anims/loading_lol = SubResource( 5 )
 
+[connection signal="request_completed" from="GetVersion" to="." method="_on_GetVersion_request_completed"]
 [connection signal="pressed" from="BarThingy/ExitButton" to="." method="_on_ExitButton_pressed"]
 [connection signal="value_changed" from="ProgressBar" to="." method="_on_ProgressBar_value_changed"]
 [connection signal="pressed" from="LaunchGame" to="." method="_on_LaunchGame_pressed"]
