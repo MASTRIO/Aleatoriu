@@ -2,13 +2,8 @@ extends Node2D
 
 func _ready():
 	$Shadow.show()
-	
-	var peer = NetworkedMultiplayerENet.new()
-	peer.create_client(IP.get_local_addresses()[3], 6007)
-	get_tree().network_peer = peer
+	Server._connect_to_server()
 
-func _physics_process(_delta):
-	rpc("update_player_position", $Player.position)
-
-remote func connection_status():
-	print("yahahah, it works")
+remote func wario(thing, amount):
+	rpc("lmao", get_tree().get_network_unique_id())
+	get_node("/root/Client/GUI/ColorRect/Label").text = thing + " x" + str(amount)
