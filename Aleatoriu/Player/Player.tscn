@@ -1,0 +1,145 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Player/Player.gd" type="Script" id=1]
+[ext_resource path="res://Player/Sprites/Leg.png" type="Texture" id=2]
+[ext_resource path="res://Player/Sprites/Head.png" type="Texture" id=3]
+[ext_resource path="res://Player/Sprites/Body.png" type="Texture" id=4]
+[ext_resource path="res://Player/Sprites/Arm.png" type="Texture" id=5]
+
+[sub_resource type="Animation" id=4]
+resource_name = "Walking"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodyParts/Head:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BodyParts/Arm1:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -70.8, -82.9755, -58.2575 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BodyParts/Arm2:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -109.2, -121.321, -98.3804 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("BodyParts/Leg1:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("BodyParts/Leg2:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("BodyParts/Arm1:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.1, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -4.02083, -1.64062 ), Vector2( -4.35937, -1.25 ), Vector2( -3.03125, -1.35417 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("BodyParts/Arm2:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.1, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.02604, -0.619791 ), Vector2( 0.583333, 0.0572919 ), Vector2( 1.3125, -0.854167 ) ]
+}
+
+[sub_resource type="StreamTexture" id=3]
+load_path = "res://.import/Arm.png-a9ea1308cd0cefa30559461107ef38f0.stex"
+
+[sub_resource type="StreamTexture" id=2]
+load_path = "res://.import/Leg.png-991839e00a074cdea7ff116fba0fc122.stex"
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 6.706
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 1 )
+
+[node name="Animations" type="AnimationPlayer" parent="."]
+autoplay = "Walking"
+anims/Walking = SubResource( 4 )
+
+[node name="BodyParts" type="Node2D" parent="."]
+scale = Vector2( 1.2, 1.2 )
+
+[node name="Head" type="Sprite" parent="BodyParts"]
+position = Vector2( -1, 0 )
+texture = ExtResource( 3 )
+
+[node name="Arm1" type="Sprite" parent="BodyParts"]
+position = Vector2( -3.52604, -1.4974 )
+rotation = -1.12624
+texture = ExtResource( 5 )
+
+[node name="Arm2" type="Sprite" parent="BodyParts"]
+position = Vector2( 1.16927, -0.736979 )
+rotation = -1.81148
+texture = SubResource( 3 )
+
+[node name="Leg1" type="Sprite" parent="BodyParts"]
+position = Vector2( -1, 0 )
+texture = ExtResource( 2 )
+
+[node name="Leg2" type="Sprite" parent="BodyParts"]
+position = Vector2( 4, 0 )
+texture = SubResource( 2 )
+
+[node name="Body" type="Sprite" parent="BodyParts"]
+position = Vector2( -1, 0 )
+texture = ExtResource( 4 )
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 1 )
